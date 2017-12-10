@@ -22,6 +22,7 @@
 
 #include "PixelMap.hpp"
 
+#define NO_BOT_LCMGL
 #ifndef NO_BOT_LCMGL
 #include <bot_core/bot_core.h>
 #include <bot_lcmgl_client/lcmgl.h>

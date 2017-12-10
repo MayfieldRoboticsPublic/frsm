@@ -10,7 +10,7 @@
 #include <assert.h>
 
 
-//#define NO_LCM
+#define NO_LCM
 #ifndef NO_LCM
 #include <lcmtypes/frsm_pixel_map_t.h>
 #include <zlib.h>

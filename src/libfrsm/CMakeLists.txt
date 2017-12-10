@@ -9,7 +9,7 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(LCM lcm)
 if(NOT LCM_FOUND)
     message("LCM not found.  Disabling LCM support")
-    add_definitions(-DNO_LCM)    
+    add_definitions(-DNO_LCM)
 else()
     set(REQUIRED_PKGS ${REQUIRED_PKGS} lcm lcmtypes_frsm)
 endif()
@@ -17,7 +17,7 @@ endif()
 pkg_check_modules(BOT_LCMGL bot2-lcmgl-client)
 if(NOT BOT_LCMGL_FOUND)
     message("bot-lcmgl not found.  Disabling drawing support")
-    add_definitions(-DNO_BOT_LCMGL)    
+    add_definitions(-DNO_BOT_LCMGL)
 else()
     set(REQUIRED_PKGS ${REQUIRED_PKGS} bot2-lcmgl-client)
 endif()
@@ -33,8 +33,6 @@ pods_install_headers(${hpp_files} DESTINATION frsm)
 
 pods_install_pkg_config_file(frsm
     LIBS -lfrsm ${REQUIRED_LIBS}
-    CFLAGS 
-    REQUIRES ${REQUIRED_PKGS} 
+    CFLAGS
+    REQUIRES ${REQUIRED_PKGS}
     VERSION 0.0.1)
-
-add_subdirectory(test)

@@ -21,3 +21,9 @@ add_subdirectory(src/libfrsm)
 if(LCM_FOUND)
     add_subdirectory(src/frsm-lcm)
 endif()
+
+project(frsm)
+catkin_package(
+    INCLUDE_DIRS src
+    LIBRARIES frsm
+)
