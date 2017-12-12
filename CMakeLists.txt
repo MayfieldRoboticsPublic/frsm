@@ -1,31 +1,33 @@
-cmake_minimum_required(VERSION 2.6.0)
-
+cmake_minimum_required(VERSION 2.8.3)
+project(frsm)
 set(POD_NAME frsm)
 include(cmake/pods.cmake)
 
 find_package(catkin REQUIRED)
 find_package(PkgConfig REQUIRED)
 
-pkg_check_modules(LCM lcm)
-if(NOT LCM_FOUND)
-    message("LCM not found.  Disabling LCM support")
-    add_definitions(-DNO_LCM)
-else()
-    # automatically build LCM types.  This also defines a number of CMake
-    # variables, see cmake/lcmtypes.cmake for details
-    include(cmake/lcmtypes.cmake)
-    lcmtypes_build()
-endif()
 
-#include(cmake/ipp.cmake)
-
-add_subdirectory(src/libfrsm)
-if(LCM_FOUND)
-    add_subdirectory(src/frsm-lcm)
-endif()
-
-project(frsm)
 catkin_package(
     INCLUDE_DIRS src
     LIBRARIES frsm
+)
+
+
+include_directories(
+    src/libfrsm)
+
+file(GLOB SOURCE_LIST src/libfrsm/*.cpp)
+add_library(frsm SHARED ${SOURCE_LIST})
+target_link_libraries(frsm glib-2.0)
+pods_use_pkg_config_packages(frsm glib-2.0)
+
+install(TARGETS frsm
+    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+file(GLOB INCLUDE_LIST src/libfrsm/*.hpp)
+install(FILES ${INCLUDE_LIST}
+    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/libfrsm
 )
