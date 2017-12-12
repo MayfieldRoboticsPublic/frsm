@@ -3,7 +3,9 @@ cmake_minimum_required(VERSION 2.6.0)
 set(POD_NAME frsm)
 include(cmake/pods.cmake)
 
+find_package(catkin REQUIRED)
 find_package(PkgConfig REQUIRED)
+
 pkg_check_modules(LCM lcm)
 if(NOT LCM_FOUND)
     message("LCM not found.  Disabling LCM support")
